@@ -1,7 +1,11 @@
 import { Application } from 'pixi.js';
+import { COLORS } from './constants';
 
 (async () => {
     const app = new Application();
-    await app.init({ background: '#1099bb', resizeTo: window });
+    await app.init({
+        background: COLORS.FIELD,
+        resizeTo: window
+    });
     document.body.appendChild(app.canvas);
 })();
