@@ -2,7 +2,8 @@ export const COLORS = {
     ANIMAL: '#bbbbbb',
     FIELD: '#00bb55',
     HERO: '#ff0055',
-    YARD: '#ffbb00'
+    YARD: '#ffbb00',
+    YARD_STROKE: '#333333'
 };
 
 export const CONFIG = {
