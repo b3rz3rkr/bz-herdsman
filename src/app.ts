@@ -1,8 +1,9 @@
 import { Application } from 'pixi.js';
 import { COLORS } from './constants';
 
+export const app = new Application();
+
 (async () => {
-    const app = new Application();
     await app.init({
         background: COLORS.FIELD,
         resizeTo: window
