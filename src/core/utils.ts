@@ -20,20 +20,18 @@ export const getMovementAngle = (
     dy: number,
     follow = CONFIG.FOLLOW
 ) => {
-    let deg = Math.atan2(dy, dx) * (180 / Math.PI);
-    if (!follow) deg -= 180;
-    if (deg < 0) deg += 360;
-    return deg;
+    const rad = Math.atan2(dy, dx);
+
+    return follow ? rad : rad - Math.PI;
 };
 
 export const getRotatedPoint = (
     point: Coordinates,
-    angleDeg: number
+    rad: number
 ): Coordinates => {
     const { x, y } = point;
-    const angle = (angleDeg * Math.PI) / 180; // у радіани
-    const cosA = Math.cos(angle);
-    const sinA = Math.sin(angle);
+    const cosA = Math.cos(rad);
+    const sinA = Math.sin(rad);
 
     return {
         x: x * cosA - y * sinA,
