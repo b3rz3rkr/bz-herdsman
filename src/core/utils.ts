@@ -15,9 +15,13 @@ export const debounce = (fn: (...args: unknown[]) => void, delay: number) => {
 export const getDistance = (dx: number, dy: number) =>
     Math.sqrt(dx * dx + dy * dy);
 
-export const getMovementAngle = (dx: number, dy: number) => {
+export const getMovementAngle = (
+    dx: number,
+    dy: number,
+    follow = CONFIG.FOLLOW
+) => {
     let deg = Math.atan2(dy, dx) * (180 / Math.PI);
-    if (!CONFIG.FOLLOW) deg -= 180;
+    if (!follow) deg -= 180;
     if (deg < 0) deg += 360;
     return deg;
 };
