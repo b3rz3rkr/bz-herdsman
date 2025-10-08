@@ -6,11 +6,10 @@ import { Herd, Yard } from './';
 
 export class Animal extends Container {
     readonly graphics: Graphics;
-    patrol: Patrol | null;
-
-    inHerd: boolean = false;
-    targetOffset: Coordinates = { x: 0, y: 0 };
-    speedFactor: number = 0.1;
+    private _patrol: Patrol | null;
+    private _inHerd: boolean = false;
+    private _targetOffset: Coordinates = { x: 0, y: 0 };
+    private _speedFactor: number = 0.1;
 
     constructor(pos: Coordinates, yard: Yard) {
         super();
@@ -20,7 +19,34 @@ export class Animal extends Container {
         this.x = pos.x;
         this.y = pos.y;
         this.zIndex = Z_INDEX.ANIMAL;
-        this.patrol = new Patrol(this, yard);
+        this._patrol = new Patrol(this, yard);
+    }
+
+    set inHerd(val: boolean) {
+        this._inHerd = val;
+    }
+    get inHerd() {
+        return this._inHerd;
+    }
+
+    set patrol(patrol: Patrol | null) {
+        this._patrol = patrol;
+    }
+
+    set targetOffset(offset: Coordinates) {
+        this._targetOffset = offset;
+    }
+
+    get targetOffset(): Coordinates {
+        return this._targetOffset;
+    }
+
+    set speedFactor(speedFactor: number) {
+        this._speedFactor = speedFactor;
+    }
+
+    get speedFactor(): number {
+        return this._speedFactor;
     }
 
     private createAnimal(): void {
@@ -31,12 +57,8 @@ export class Animal extends Container {
         this.addChild(this.graphics);
     }
 
-    setInHerd(val: boolean) {
-        this.inHerd = val;
-    }
-
     update(ticker: Ticker, herd: Herd) {
-        this.patrol?.update(ticker);
+        this._patrol?.update(ticker);
         herd.tryCatchAnimal(this);
     }
 }

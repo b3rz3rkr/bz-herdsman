@@ -52,7 +52,7 @@ export class Herd extends Container {
                 animal.y = dy;
                 this.addChild(animal);
                 this.animals.push(animal);
-                animal.setInHerd(true);
+                animal.inHerd = true;
             }
         }
     }
@@ -138,7 +138,7 @@ export class Herd extends Container {
 
                 const global = animal.getGlobalPosition(new Point());
                 if (yardBounds.containsPoint(global.x, global.y)) {
-                    animal.setInHerd(false);
+                    animal.inHerd = false;
                     toRemove.push(animal);
                 }
             }
