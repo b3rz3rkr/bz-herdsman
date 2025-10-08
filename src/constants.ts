@@ -48,7 +48,7 @@ export const CONFIG = {
     MAX_GROUP: 5,
     HERO_SIZE: 6,
     HERO_SPEED: 5,
-    THRESHOlD_DISTANCE: 30,
+    THRESHOLD_DISTANCE: 30,
     YARD_SIZE: {
         WIDTH: 120,
         HEIGHT: 80

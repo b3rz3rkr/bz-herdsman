@@ -7,7 +7,7 @@ export class Hero extends Container {
     private readonly speed = CONFIG.HERO_SPEED;
     private target: Coordinates;
 
-    threshold = CONFIG.THRESHOlD_DISTANCE;
+    threshold = CONFIG.THRESHOLD_DISTANCE;
 
     constructor(pos: Coordinates) {
         super();
