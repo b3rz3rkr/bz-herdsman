@@ -33,8 +33,12 @@ export class Game extends Container {
             this.animals.push(animal);
             this.addChild(animal);
         });
+
         KeyInput.init(app.stage, app.screen);
         KeyInput.onClick((point) => {
+            this.hero.moveTo(point);
+        });
+        KeyInput.onHoldMove((point) => {
             this.hero.moveTo(point);
         });
 
