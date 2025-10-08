@@ -106,29 +106,29 @@ export class Patrol {
 
     update(ticker: Ticker) {
         if (this.isPatrolling && this.animal) {
-            const deltaMS = ticker.deltaMS;
+            const { deltaMS, deltaTime } = ticker;
             this.timer += deltaMS;
 
             const dx = this.target.x - this.animal.x;
             const dy = this.target.y - this.animal.y;
             const dist = getDistance(dx, dy);
 
-            if (dist < 1) {
-                if (this.timer >= this.delay) {
-                    this.timer = 0;
-                    this.delay = randomDelay() * 12;
-                    this.target = this.getNewTarget();
-                }
+            if (dist > this.speed) {
+                const vx = (dx / dist) * this.speed * deltaTime;
+                const vy = (dy / dist) * this.speed * deltaTime;
 
-                return;
+                this.animal.x += vx;
+                this.animal.y += vy;
+            } else {
+                this.animal.x = this.target.x;
+                this.animal.y = this.target.y;
             }
 
-            const delta = deltaMS / 16.67;
-            const vx = (dx / dist) * this.speed * delta;
-            const vy = (dy / dist) * this.speed * delta;
-
-            this.animal.x += vx;
-            this.animal.y += vy;
+            if (this.timer >= this.delay) {
+                this.timer = 0;
+                this.delay = randomDelay() * 12;
+                this.target = this.getNewTarget();
+            }
         }
     }
 }
