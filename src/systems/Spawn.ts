@@ -5,6 +5,7 @@ export class Spawn {
     private readonly hero: Hero;
     private readonly yard: Yard;
     private readonly canvas: HTMLCanvasElement;
+    private timeoutId: number | null = null;
     autoDelay: number;
 
     constructor(hero: Hero, yard: Yard, canvas: HTMLCanvasElement) {
@@ -50,10 +51,22 @@ export class Spawn {
             onSpawn(animal);
         }
         this.autoDelay = randomDelay();
-        setTimeout(() => this.autoSpawnLoop(onSpawn), this.autoDelay);
+        this.timeoutId = window.setTimeout(
+            () => this.autoSpawnLoop(onSpawn),
+            this.autoDelay
+        );
     };
 
     startAutoSpawn(onSpawn: (a: Animal) => void) {
-        setTimeout(() => this.autoSpawnLoop(onSpawn), this.autoDelay);
+        this.timeoutId = window.setTimeout(
+            () => this.autoSpawnLoop(onSpawn),
+            this.autoDelay
+        );
+    }
+    stopAutoSpawn() {
+        if (this.timeoutId !== null) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
     }
 }

@@ -75,6 +75,7 @@ export class Game extends Container {
 
     destroy(options: DestroyOptions) {
         window.removeEventListener('resize', this.handleResize);
+        this.spawn.stopAutoSpawn();
         super.destroy(options);
     }
 
