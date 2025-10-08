@@ -3,8 +3,8 @@ import { COLORS, Z_INDEX } from '../constants';
 import { Coordinates } from '../core';
 
 export class Score extends Container {
-    score: Text;
-    counter: number;
+    private readonly score: Text;
+    private counter: number;
 
     constructor(pos: Coordinates) {
         super();
