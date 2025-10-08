@@ -1,29 +1,33 @@
-import Entity from '../core/Entity';
-import { app } from '../app';
-import { Graphics } from 'pixi.js';
-import { COLORS, CONFIG } from '../constants';
+import { Container, Graphics } from 'pixi.js';
+import { COLORS, CONFIG, Z_INDEX } from '../constants';
 
-export class Yard extends Entity {
-    graphics: Graphics;
+export class Yard extends Container {
+    private readonly graphics: Graphics;
+    private readonly yWidth: number = CONFIG.YARD_SIZE.WIDTH;
+    private readonly yHeight: number = CONFIG.YARD_SIZE.HEIGHT;
+    readonly canvas: HTMLCanvasElement;
 
-    constructor() {
+    constructor(canvas: HTMLCanvasElement) {
         super();
         this.graphics = new Graphics();
+        this.canvas = canvas;
+
         this.createYard();
     }
 
-    createYard() {
+    private createYard() {
         this.setYard();
-        app.stage.addChild(this.graphics);
+        this.addChild(this.graphics);
     }
 
-    setYard() {
-        const posX = app.canvas.width / 2 - CONFIG.YARD_SIZE.WIDTH / 2;
-        const posY = app.canvas.height - CONFIG.YARD_SIZE.HEIGHT;
+    private setYard() {
         this.graphics
-            .rect(posX, posY, CONFIG.YARD_SIZE.WIDTH, CONFIG.YARD_SIZE.HEIGHT)
+            .rect(0, 0, this.yWidth, this.yHeight)
             .fill({ color: COLORS.YARD })
-            .stroke({ width: 2, color: COLORS.YARD_STROKE });
+            .stroke({ width: 2, color: COLORS.STROKE });
+        this.zIndex = Z_INDEX.YARD;
+        this.x = this.canvas.width / 2 - this.yWidth / 2;
+        this.y = this.canvas.height - this.yHeight;
     }
 
     resize() {
@@ -31,4 +35,3 @@ export class Yard extends Entity {
         this.setYard();
     }
 }
-export default Yard;

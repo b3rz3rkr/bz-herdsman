@@ -30,12 +30,16 @@ Please create a simple 2D prototype of the mini-game where the player can collec
 
 #### What we want to see:
 > 1. The code of the prototype is the main point of interest. Please:
-> - a. Describe your OOP and SOLID knowledge
+>    - Describe your OOP and SOLID knowledge
 >
-> - b. Describe your Patters and Best Practices knowledge
+>    - Describe your Patters and Best Practices knowledge
 > 
-> - c. Describe your Code Style and Architectural knowledge
+>    - Describe your Code Style and Architectural knowledge
 > 2. Game Framework building skills
 > 3. All points from the AC must be completed.
 > 4. Points from the Additional (optional) AC can be skipped. But if they are completed, it will
    be a plus.
+
+#### What was improved, but not requested
+> 1. Animals can change behavior with changing constant `CONFIG.FOLLOW`
+> 2. Can be visible FPS Counter
