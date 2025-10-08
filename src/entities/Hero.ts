@@ -42,7 +42,7 @@ export class Hero extends Container {
         const dy = this.target.y - this.y;
         const dist = getDistance(dx, dy);
 
-        const step = (this.speed * ticker.deltaMS) / 16.667;
+        const step = this.speed * ticker.deltaTime;
         if (dist > step) {
             this.x += (dx / dist) * step;
             this.y += (dy / dist) * step;
