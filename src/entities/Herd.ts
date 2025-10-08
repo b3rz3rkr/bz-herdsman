@@ -106,6 +106,7 @@ export class Herd extends Container {
         if (now - last > delay) {
             const angle = getMovementAngle(dx, dy);
             this.formation = getRotatedFormation(angle);
+            this.formationUpdated = now;
         }
     }
 
