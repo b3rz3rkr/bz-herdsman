@@ -128,7 +128,7 @@ export class Herd extends Container {
 
         const yardBounds = this.yard.yardBoundsCache;
         const toRemove: Animal[] = [];
-
+        const newPoint = new Point();
         animals.forEach((animal, index) => {
             if (animal.inHerd && !animal.destroyed) {
                 this.applyWobble(animal, this.formation[index]);
@@ -137,7 +137,7 @@ export class Herd extends Container {
                 animal.x += (target.x - animal.x) * speed;
                 animal.y += (target.y - animal.y) * speed;
 
-                const global = animal.getGlobalPosition(new Point());
+                const global = animal.getGlobalPosition(newPoint);
                 if (yardBounds.containsPoint(global.x, global.y)) {
                     animal.inHerd = false;
                     toRemove.push(animal);
