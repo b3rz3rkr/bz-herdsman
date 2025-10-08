@@ -39,15 +39,17 @@ export class Patrol {
     }
 
     private getNewTarget(): Coordinates {
-        const target = this.target ?? { x: 0, y: 0 };
+        let target = this.target ?? { x: 0, y: 0 };
 
         if (this.animal && this.yard) {
             let tries = 0;
             const maxTries = 30;
 
             do {
-                target.x = randomInt(0, this.yard.canvas.width);
-                target.y = randomInt(0, this.yard.canvas.height);
+                target = {
+                    x: randomInt(0, this.yard.canvas.width),
+                    y: randomInt(0, this.yard.canvas.height)
+                };
                 tries++;
             } while (
                 this.pathIntersectsYard(
@@ -113,8 +115,8 @@ export class Patrol {
 
             if (dist < 1) {
                 if (this.timer >= this.delay) {
-                    this.timer = -this.timer * randomInt(1, 5);
-                    this.delay = randomDelay();
+                    this.timer = 0;
+                    this.delay = randomDelay() * 12;
                     this.target = this.getNewTarget();
                 }
 
