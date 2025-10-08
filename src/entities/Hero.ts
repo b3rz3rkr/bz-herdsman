@@ -46,6 +46,9 @@ export class Hero extends Container {
         if (dist > step) {
             this.x += (dx / dist) * step;
             this.y += (dy / dist) * step;
+        } else {
+            this.x = this.target.x;
+            this.y = this.target.y;
         }
     }
 }
