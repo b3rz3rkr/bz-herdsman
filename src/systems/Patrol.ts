@@ -18,7 +18,7 @@ export class Patrol {
     private readonly maxSpeed: number = CONFIG.ANIMAL_SPEED.MAX;
     private delay: number = randomDelay();
     private timer: number = 0;
-    isPatrolling = true;
+    private isPatrolling = true;
 
     constructor(animal: Animal, yard: Yard) {
         this.animal = animal;
