@@ -73,7 +73,7 @@ export class Patrol {
     ): boolean {
         if (!this.yard) return false;
 
-        const yardBounds = this.yard.getBounds();
+        const yardBounds = this.yard.yardBoundsCache;
 
         if (
             yardBounds.containsPoint(x1, y1) ||

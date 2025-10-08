@@ -126,7 +126,7 @@ export class Herd extends Container {
         this.x = hero.x;
         this.y = hero.y;
 
-        const yardBounds = this.yard.getBounds();
+        const yardBounds = this.yard.yardBoundsCache;
         const toRemove: Animal[] = [];
 
         animals.forEach((animal, index) => {

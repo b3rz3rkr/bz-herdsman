@@ -1,4 +1,4 @@
-import { Container, Graphics } from 'pixi.js';
+import { Bounds, Container, Graphics } from 'pixi.js';
 import { COLORS, CONFIG, Z_INDEX } from '../constants';
 
 export class Yard extends Container {
@@ -6,6 +6,7 @@ export class Yard extends Container {
     private readonly yWidth: number = CONFIG.YARD_SIZE.WIDTH;
     private readonly yHeight: number = CONFIG.YARD_SIZE.HEIGHT;
     readonly canvas: HTMLCanvasElement;
+    private _yardBoundsCache: Bounds;
 
     constructor(canvas: HTMLCanvasElement) {
         super();
@@ -13,6 +14,7 @@ export class Yard extends Container {
         this.canvas = canvas;
 
         this.createYard();
+        this._yardBoundsCache = this.getBounds();
     }
 
     private createYard() {
@@ -30,8 +32,13 @@ export class Yard extends Container {
         this.y = this.canvas.height - this.yHeight;
     }
 
+    get yardBoundsCache() {
+        return this._yardBoundsCache;
+    }
+
     resize() {
         this.graphics.clear();
         this.setYard();
+        this._yardBoundsCache = this.getBounds();
     }
 }

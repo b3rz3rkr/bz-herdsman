@@ -41,7 +41,7 @@ export class Spawn {
             return false;
         }
 
-        const yardBounds = this.yard.getBounds();
+        const yardBounds = this.yard.yardBoundsCache;
         return !yardBounds.containsPoint(x, y);
     }
 
