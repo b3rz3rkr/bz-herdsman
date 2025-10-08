@@ -48,10 +48,10 @@ export class Herd extends Container {
                     .fill({ color: COLORS.HERD })
                     .stroke({ width: 2, color: COLORS.STROKE });
 
-                animal.x = dx;
-                animal.y = dy;
                 this.addChild(animal);
                 this.animals.push(animal);
+                animal.x = dx;
+                animal.y = dy;
                 animal.inHerd = true;
             }
         }
@@ -116,7 +116,7 @@ export class Herd extends Container {
         const dx = this.prevX - x;
         const dy = this.prevY - y;
 
-        if (dx !== 0 && dy !== 0) {
+        if (Math.abs(dx) > 0.001 || Math.abs(dy) > 0.001) {
             this.updateFormation(dx, dy);
         }
 
@@ -133,9 +133,9 @@ export class Herd extends Container {
             if (animal.inHerd && !animal.destroyed) {
                 this.applyWobble(animal, this.formation[index]);
                 const target = animal.targetOffset;
-                animal.speedFactor = this.getAnimalSpeed(animal);
-                animal.x += (target.x - animal.x) * animal.speedFactor;
-                animal.y += (target.y - animal.y) * animal.speedFactor;
+                const speed = this.getAnimalSpeed(animal);
+                animal.x += (target.x - animal.x) * speed;
+                animal.y += (target.y - animal.y) * speed;
 
                 const global = animal.getGlobalPosition(new Point());
                 if (yardBounds.containsPoint(global.x, global.y)) {
