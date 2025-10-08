@@ -53,7 +53,7 @@ export const CONFIG = {
         WIDTH: 120,
         HEIGHT: 80
     }
-};
+} as const;
 
 export const BASE_FORMATION: Coordinates[] = [
     { x: 20, y: -20 },
@@ -61,7 +61,7 @@ export const BASE_FORMATION: Coordinates[] = [
     { x: 40, y: -10 },
     { x: 40, y: 10 },
     { x: 60, y: 0 }
-];
+] as const;
 
 export const Z_INDEX: ZIndexes = {
     YARD: 0,
@@ -69,4 +69,4 @@ export const Z_INDEX: ZIndexes = {
     HERD: 2,
     HERO: 3,
     UI: 4
-};
+} as const;
