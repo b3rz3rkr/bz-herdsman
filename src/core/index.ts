@@ -4,6 +4,7 @@ export {
     getDistance,
     getMovementAngle,
     getRotatedFormation,
+    getRotatedPoint,
     intersects,
     randomDelay,
     randomInt

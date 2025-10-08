@@ -26,16 +26,23 @@ export const getMovementAngle = (
     return deg;
 };
 
-export const getRotatedFormation = (angleDeg: number): Coordinates[] => {
+export const getRotatedPoint = (
+    point: Coordinates,
+    angleDeg: number
+): Coordinates => {
+    const { x, y } = point;
     const angle = (angleDeg * Math.PI) / 180; // у радіани
     const cosA = Math.cos(angle);
     const sinA = Math.sin(angle);
 
-    return BASE_FORMATION.map(({ x, y }) => ({
+    return {
         x: x * cosA - y * sinA,
         y: x * sinA + y * cosA
-    }));
+    };
 };
+
+export const getRotatedFormation = (angle: number): Coordinates[] =>
+    BASE_FORMATION.map((point) => getRotatedPoint(point, angle));
 
 export const intersects = (
     x1: number,

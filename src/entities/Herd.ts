@@ -5,6 +5,7 @@ import {
     getDistance,
     getMovementAngle,
     getRotatedFormation,
+    getRotatedPoint,
     randomInt
 } from '../core';
 import { Score } from '../ui';
@@ -16,6 +17,7 @@ export class Herd extends Container {
     private readonly score: Score;
     private readonly animals: Animal[] = [];
     private readonly maxSize = CONFIG.MAX_GROUP;
+    private movementAngle: number = 0;
     private formation: Coordinates[] = BASE_FORMATION;
     private formationUpdated: number = performance.now();
     private prevX = 0;
@@ -68,21 +70,30 @@ export class Herd extends Container {
         }
     }
 
-    private applyWobble(animal: Animal, point: Coordinates): void {
+    private applyWobble(animal: Animal, index: number): void {
         const now = performance.now();
         const last = this.wobbleTimers.get(animal) ?? 0;
         const delay = 500;
 
         if (now - last > delay) {
-            const x = point?.x ?? animal.x;
-            const y = point?.y ?? animal.y;
-
             this.wobbleTimers.set(animal, now);
 
-            animal.targetOffset = {
-                x: x + randomInt(-50, 50) / 10,
-                y: y + randomInt(-50, 50) / 10
-            };
+            const point = this.formation[index];
+
+            if (point) {
+                animal.targetOffset = {
+                    x: point.x + randomInt(-5, 5),
+                    y: point.y + randomInt(-5, 5)
+                };
+            } else {
+                animal.targetOffset = getRotatedPoint(
+                    {
+                        x: index % 100,
+                        y: randomInt(-index % 100, index % 100)
+                    },
+                    this.movementAngle
+                );
+            }
         }
     }
 
@@ -99,12 +110,11 @@ export class Herd extends Container {
         return animal.speedFactor;
     }
 
-    private updateFormation(dx: number, dy: number) {
+    private updateFormation(angle: number) {
         const now = performance.now();
         const last = this.formationUpdated;
         const delay = 100;
         if (now - last > delay) {
-            const angle = getMovementAngle(dx, dy);
             this.formation = getRotatedFormation(angle);
             this.formationUpdated = now;
         }
@@ -117,7 +127,8 @@ export class Herd extends Container {
         const dy = this.prevY - y;
 
         if (Math.abs(dx) > 0.001 || Math.abs(dy) > 0.001) {
-            this.updateFormation(dx, dy);
+            this.movementAngle = getMovementAngle(dx, dy);
+            this.updateFormation(this.movementAngle);
         }
 
         this.prevX = x;
@@ -131,7 +142,7 @@ export class Herd extends Container {
         const newPoint = new Point();
         animals.forEach((animal, index) => {
             if (animal.inHerd && !animal.destroyed) {
-                this.applyWobble(animal, this.formation[index]);
+                this.applyWobble(animal, index);
                 const target = animal.targetOffset;
                 const speed = this.getAnimalSpeed(animal);
                 animal.x += (target.x - animal.x) * speed;
